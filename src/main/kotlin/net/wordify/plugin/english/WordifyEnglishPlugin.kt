@@ -7,6 +7,8 @@ import net.wordify.api.WordifyTokenizer
 import java.lang.RuntimeException
 
 class WordifyEnglishPlugin : WordifyPlugin {
+    private val dict = LemmatizerDict()
+
     override fun getName(): String = "wordify-english-plugin"
 
     override fun getDescription(): String = "Add supporting of English language into Wordify"
@@ -30,7 +32,7 @@ class WordifyEnglishPlugin : WordifyPlugin {
         }
 
         if (feature == WordifyLemmatizer::class.java) {
-            return WordifyEnglishLemmatizer() as T
+            return WordifyEnglishLemmatizer(dict) as T
         }
 
         throw RuntimeException("Unsupported feature '${feature.name}' for language '$lang'")
