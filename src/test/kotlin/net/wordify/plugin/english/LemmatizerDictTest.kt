@@ -24,6 +24,13 @@ class LemmatizerDictTest {
     }
 
     @Test
+    fun `Lemmatize Determiner an`() {
+        val dict = LemmatizerDict()
+
+        assertEquals("an", dict.lemmatize("an"))
+    }
+
+    @Test
     fun `Lemmatize real sample`() {
         val dict = LemmatizerDict()
         val tokenizer = WordifyEnglishTokenizer()

@@ -33,7 +33,13 @@ class LemmatizerDict() {
                 return word
             }
 
-            return found.first().lemma
+            val first = found.first()
+
+            if (first.tag == "DT") {
+                return word
+            }
+
+            return first.lemma
         }
 
         if (irregVerbs.contains(word)) {
