@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class LemmatizerDictTest {
     @Test
-    fun `Lemmatizing irregular verb returns the same word`() {
+    fun `Lemmatizing irregular verb returns the same verb`() {
         val dict = LemmatizerDict()
         val verbs = javaClass.classLoader
                 .getResourceAsStream("dict/english_irregular_verbs.txt")
@@ -27,7 +27,10 @@ class LemmatizerDictTest {
     fun `Lemmatize real sample`() {
         val dict = LemmatizerDict()
         val tokenizer = WordifyEnglishTokenizer()
-        val words = tokenizer.parse(sample1).asSequence().toList()
+        val words = tokenizer.parse(sample1)
+                .asSequence()
+                .distinct()
+                .toList()
 
         val lastTime = System.currentTimeMillis()
 

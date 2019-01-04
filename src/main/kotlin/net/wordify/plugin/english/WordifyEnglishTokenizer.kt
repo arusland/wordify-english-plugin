@@ -11,15 +11,19 @@ class WordifyEnglishTokenizer : WordifyTokenizer {
         return rawText.toLowerCase()
                 .split(splitRegexEn)
                 .filter { it.length > 1 }
-                .filter { isNotNumber(it) }
+                .filter { isLegalToken(it) }
                 .iterator()
     }
 
     /**
      * Some token is represented as word if one contains at least one non-digit character
      */
-    private inline fun isNotNumber(value: String): Boolean {
-        for (ch in value) {
+    override fun isLegalToken(token: String): Boolean {
+        if (token[0].isDigit()) {
+            return false
+        }
+
+        for (ch in token) {
             if (!(ch.isDigit() || ch == '-')) {
                 return true
             }
