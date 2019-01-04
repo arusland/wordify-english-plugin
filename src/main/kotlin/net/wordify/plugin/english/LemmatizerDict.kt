@@ -3,38 +3,47 @@ package net.wordify.plugin.english
 import java.lang.RuntimeException
 
 class LemmatizerDict() {
-    val items: List<DictItem>
+    private val items: Map<String, List<DictItem>>
+    private val irregVerbs: Set<String>
 
     init {
-        val lines = ArrayList<DictItem>()
-
-        javaClass.classLoader.getResourceAsStream("dict/en-lemmatizer.dict")
-                .reader()
-                .forEachLine { line ->
-                    lines.add(parseLine(line))
-                }
-
-        this.items = lines
+        this.items = javaClass.classLoader
+                .getResourceAsStream("dict/en-lemmatizer.dict")
+                .bufferedReader()
+                .lineSequence()
+                .map { parseLine(it) }
+                .groupBy { it.word }
+        this.irregVerbs = javaClass.classLoader.getResourceAsStream("dict/english_irregular_verbs.txt")
+                .bufferedReader()
+                .lineSequence()
+                .toSet()
     }
 
-    fun lemmatize(word: String) : String? {
-        val found = items.filter { it.word == word }.toList()
+    fun lemmatize(word: String): String? {
+        val found = items[word]
 
-        if (found.isNotEmpty()) {
-
+        if (found != null) {
             val noun = found.firstOrNull { it.tag == "NN" }
 
             if (noun != null) {
                 return noun.lemma
             }
 
+            if (irregVerbs.contains(word)) {
+                return word
+            }
+
             return found.first().lemma
+        }
+
+        if (irregVerbs.contains(word)) {
+            return word
         }
 
         return null
     }
 
-    private fun parseLine(line: String): DictItem {
+    private inline fun parseLine(line: String): DictItem {
         val parts = line.split('\t')
 
         if (parts.size != 3) {

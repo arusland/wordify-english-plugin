@@ -1,28 +1,30 @@
 package net.wordify.plugin.english
 
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class LemmatizerDictTest {
     @Test
-    fun testInit() {
+    fun `Lemmatizing irregular verb returns the same word`() {
         val dict = LemmatizerDict()
+        val verbs = javaClass.classLoader
+                .getResourceAsStream("dict/english_irregular_verbs.txt")
+                .bufferedReader()
+                .lineSequence()
+                .toSet()
 
-        println("Loaded dict: ${dict.items.size}")
+        val lastTime = System.currentTimeMillis()
 
-        dict.items.filter { it.word == "anus" }.forEach { println(it) }
+        verbs.forEach { verb ->
+            assertEquals(verb, dict.lemmatize(verb))
+        }
+        val elapsed = System.currentTimeMillis() - lastTime
 
-        println()
-
-        dict.items.filter { it.word == "works" || it.word == "work" }.forEach { println(it) }
-
-        println()
-
-        dict.items.filter { it.tag == "VBG" && !it.word.endsWith("ing") }
-                .forEachIndexed { index, item -> println("$index: $item") }
+        println("${verbs.size} verbs parsed in $elapsed ms")
     }
 
     @Test
-    fun testLemmatizeSample() {
+    fun `Lemmatize real sample`() {
         val dict = LemmatizerDict()
         val tokenizer = WordifyEnglishTokenizer()
         val words = tokenizer.parse(sample1).asSequence().toList()
@@ -30,7 +32,8 @@ class LemmatizerDictTest {
         val lastTime = System.currentTimeMillis()
 
         words.forEach { word ->
-            println("$word:\t\t" + dict.lemmatize(word))
+            val lemma = dict.lemmatize(word)
+            println("$word:\t\t$lemma")
         }
         val elapsed = System.currentTimeMillis() - lastTime
 
