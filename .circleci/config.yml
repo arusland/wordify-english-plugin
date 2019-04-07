@@ -23,7 +23,7 @@ jobs:
           keys:
             - wordify-api-{{ checksum "pom.xml" }}
             
-      - run: mvn -s .circleci.settings.xml -DaltDeploymentRepository=snapshots::default::${SNAPSHOT_URL} deploy
+      - run: mvn -s .circleci.settings.xml -DaltDeploymentRepository=snapshots::default::${MAVEN_BASE_URL}/libs-snapshot/ deploy
       
       - save_cache:
           paths:
