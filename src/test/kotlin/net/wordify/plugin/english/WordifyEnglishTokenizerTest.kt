@@ -13,4 +13,14 @@ class WordifyEnglishTokenizerTest {
 
         assertEquals(words, listOf("what", "up", "today", "have", "weapons", "ak-47", "and"))
     }
+
+    @Test
+    fun `Test skipping word starting with non-legal chars`() {
+        val tokenizer = WordifyEnglishTokenizer()
+        val words = tokenizer.parse("Hello my name is -as 7even Jake")
+                .asSequence()
+                .toList()
+
+        assertEquals(words, listOf("hello", "my", "name", "is", "jake"))
+    }
 }

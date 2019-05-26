@@ -19,7 +19,7 @@ class WordifyEnglishTokenizer : WordifyTokenizer {
      * Some token is represented as word if one contains at least one non-digit character
      */
     override fun isLegalToken(token: String): Boolean {
-        if (token[0].isDigit()) {
+        if (token[0].isDigit() || token[0] == '-') {
             return false
         }
 
