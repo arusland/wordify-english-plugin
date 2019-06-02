@@ -5,7 +5,7 @@
     <server>
       <username>ruslan</username>
       <password>${MAVEN_PASSWORD}</password>
-      <id>snapshots</id>
+      <id>deployid</id>
     </server>
   </servers>
   <profiles>
