@@ -6,7 +6,7 @@
 
     <groupId>net.wordify.plugin</groupId>
     <artifactId>wordify-english-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <kotlin.version>1.3.11</kotlin.version>

@@ -31,6 +31,16 @@ class LemmatizerDictTest {
     }
 
     @Test
+    fun `Lemmatize MD, Unique plular nouns, CC`() {
+        val dict = LemmatizerDict()
+
+        assertEquals("would", dict.lemmatize("would"))
+        assertEquals("might", dict.lemmatize("might"))
+        assertEquals("vs", dict.lemmatize("vs"))
+        assertEquals("us", dict.lemmatize("us"))
+    }
+
+    @Test
     fun `Lemmatize real sample`() {
         val dict = LemmatizerDict()
         val tokenizer = WordifyEnglishTokenizer()
