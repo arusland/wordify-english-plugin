@@ -5,7 +5,7 @@
     <server>
       <username>ruslan</username>
       <password>${MAVEN_PASSWORD}</password>
-      <id>deployid</id>
+      <id>authid</id>
     </server>
   </servers>
   <profiles>
@@ -21,7 +21,7 @@
         </repository>
         <repository>
           <snapshots />
-          <id>snapshots</id>
+          <id>authid</id>
           <name>libs-snapshot</name>
           <url>${MAVEN_BASE_URL}/libs-snapshot</url>
         </repository>
