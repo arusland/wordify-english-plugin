@@ -7,11 +7,11 @@ class WordifyEnglishTokenizerTest {
     @Test
     fun `Test skipping non-legal tokens`() {
         val tokenizer = WordifyEnglishTokenizer()
-        val words = tokenizer.parse("What's up! Today i have 2 weapons: AK-47 and 3-BFG")
+        val words = tokenizer.parse("What's up! Today i b a have 2 weapons: AK-47 and 3-BFG")
                 .asSequence()
                 .toList()
 
-        assertEquals(words, listOf("what", "up", "today", "have", "weapons", "ak-47", "and"))
+        assertEquals(listOf("what's", "up", "today", "i", "a", "have", "weapons", "ak-47", "and"), words)
     }
 
     @Test
