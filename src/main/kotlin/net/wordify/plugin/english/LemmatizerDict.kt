@@ -38,7 +38,7 @@ class LemmatizerDict() {
             val first = found.first()
 
             // keep determiners and modal verbs
-            if (first.tag == "DT" || first.tag == "MD") {
+            if (first.tag == "DT" || first.tag == "MD" || first.tag == "CC") {
                 return word
             }
 
