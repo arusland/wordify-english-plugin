@@ -15,9 +15,9 @@
           <snapshots>
             <enabled>false</enabled>
           </snapshots>
-          <id>central</id>
+          <id>authid</id>
           <name>libs-release</name>
-          <url>http://repo.maven.apache.org/maven2</url>
+          <url>${MAVEN_BASE_URL}/libs-release</url>
         </repository>
         <repository>
           <snapshots />
