@@ -25,17 +25,20 @@ class LemmatizerDict() {
         if (found != null) {
             val noun = found.firstOrNull { it.tag == "NN" }
 
+            // return first noun lemma
             if (noun != null) {
                 return noun.lemma
             }
 
+            // keep irregular words
             if (irregVerbs.contains(word)) {
                 return word
             }
 
             val first = found.first()
 
-            if (first.tag == "DT") {
+            // keep determiners and modal verbs
+            if (first.tag == "DT" || first.tag == "MD") {
                 return word
             }
 
