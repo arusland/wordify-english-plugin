@@ -1,0 +1,17 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: test
+    image: maven:3.8.3-openjdk-17
+    volumes:
+      - name: cache
+        path: /root/.m2
+    commands:
+      - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - mvn test -B
+
+volumes:
+  - name: cache
+    host:
+      path: /temp/drone/cache
